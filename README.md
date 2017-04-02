@@ -1,0 +1,2 @@
+# AugmentMyRaspberryPiSenseData
+First commit
