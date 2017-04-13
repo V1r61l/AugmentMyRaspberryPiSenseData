@@ -19,13 +19,13 @@ namespace Assets.Scripts
         public string Type { get; set; }
 
         [DynamoDBProperty(AttributeName = "Temperature")]
-        public string Temperature { get; set; }
+        public float Temperature { get; set; }
 
         [DynamoDBProperty(AttributeName = "Pressure")]
-        public string Pressure { get; set; }
+        public float Pressure { get; set; }
 
         [DynamoDBProperty(AttributeName = "Humidty")]
-        public string Humidity { get; set; }
+        public float Humidity { get; set; }
 
         [DynamoDBProperty(AttributeName = "GPS")]
         public string GPS { get; set; }

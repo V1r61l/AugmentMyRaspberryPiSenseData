@@ -17,7 +17,7 @@ public class CloudConnInitialization : MonoBehaviour {
     public Button getterSensorData;
     public Button showSensorData;
 
-    public LineChart _lineChart = null; 
+    //public LineChart _lineChart = null; 
 
     private static AmazonDynamoDBClient _client;
     private AmazonDynamoDBConfig _config;
@@ -106,13 +106,13 @@ public class CloudConnInitialization : MonoBehaviour {
                     log.SensorNumber = Convert.ToInt32(value.N);
                     break;
                 case "Temperature":
-                    log.Temperature = value.S;
+                    log.Temperature = float.Parse(value.S, CultureInfo.InvariantCulture.NumberFormat);
                     break;
                 case "Humidity":
-                    log.Humidity = value.S;
+                    log.Humidity = float.Parse(value.S, CultureInfo.InvariantCulture.NumberFormat);
                     break;
                 case "Pressure":
-                    log.Pressure = value.S;
+                    log.Pressure = float.Parse(value.S, CultureInfo.InvariantCulture.NumberFormat);
                     break;
                 case "Datestamp":
                     log.Date = value.S;
@@ -121,11 +121,11 @@ public class CloudConnInitialization : MonoBehaviour {
                     break;
             }
 
-            //Debug.Log((
-            //       "\n" + attributeName + " " +
-            //       (value.S == null ? "" : "S=[" + value.S + "]") +
-            //       (value.N == null ? "" : "N=[" + value.N + "]")
-            //   ));
+            Debug.Log((
+                   "\n" + attributeName + " " +
+                   (value.S == null ? "" : "S=[" + value.S + "]") +
+                   (value.N == null ? "" : "N=[" + value.N + "]")
+               ));
         }
         sensorReadings.Add(log);
     }
@@ -154,37 +154,37 @@ public class CloudConnInitialization : MonoBehaviour {
 
     private void ConstructTemperatureGraph()
     {
-        data = new float[3][];
-        for (int i = 0; i < data.Length; i++)
-        {
-            data[i] = new float[sensorReadings.Count];
-            if (sensorReadings.Count != 0)
-            {
-                for (int j = 0; j < sensorReadings.Count; j++)
-                {
-                    if (i == 0)
-                    {
-                        data[i][j] = float.Parse(sensorReadings[j].Temperature, CultureInfo.InvariantCulture.NumberFormat);
-                    }
-                    else if (i == 1)
-                    {
-                        data[i][j] = float.Parse(sensorReadings[j].Humidity, CultureInfo.InvariantCulture.NumberFormat);
-                    }
-                    else
-                    {
-                        data[i][j] = float.Parse(sensorReadings[j].Pressure, CultureInfo.InvariantCulture.NumberFormat);
-                    }
-                }
-            }
-            else
-            {
-                Debug.Log("There are no readings from table");
-            }
-        }
+        //data = new float[3][];
+        //for (int i = 0; i < data.Length; i++)
+        //{
+        //    data[i] = new float[sensorReadings.Count];
+        //    if (sensorReadings.Count != 0)
+        //    {
+        //        for (int j = 0; j < sensorReadings.Count; j++)
+        //        {
+        //            //if (i == 0)
+        //            //{
+        //                data[i][j] = float.Parse(sensorReadings[j].Temperature, CultureInfo.InvariantCulture.NumberFormat);
+        //            //}
+        //            //else if (i == 1)
+        //            //{
+        //            //    data[i][j] = float.Parse(sensorReadings[j].Humidity, CultureInfo.InvariantCulture.NumberFormat);
+        //            //}
+        //            //else
+        //            //{
+        //            //    data[i][j] = float.Parse(sensorReadings[j].Pressure, CultureInfo.InvariantCulture.NumberFormat);
+        //            //}
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("There are no readings from table");
+        //    }
+        //}
 
-        if (_lineChart != null)
-        {
-            _lineChart.UpdateData(data);
-        }
+        //if (_lineChart != null)
+        //{
+        //    _lineChart.UpdateData(data);
+        //}
     }
 }
